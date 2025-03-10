@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <h1>HÍREK</h1>
+    <h3 id="cim"></h3>
+    <img src="" id="image">
+    <p><span>Link: </span><a href="" id="link">Itt olvashat erről</a></p>
+    <p><span>Forrás: </span><span id="source"></span></p>
+</div>
+
+<script>
+    fetch('https://localhost:7289/api/RandomNews').then((res) => {
+    if (!res.ok) {
+        throw Error('could not fetch data for that resource');
+    }
+    return res.json();
+    }).then((data) => {
+        let aktualis_hir=data;
+
+        document.getElementById("cim").innerHTML=aktualis_hir.title;
+        document.getElementById("image").src = aktualis_hir.imageLink;
+        document.getElementById("link").href = aktualis_hir.originalNewsLink;
+        document.getElementById("source").innerHTML=aktualis_hir.source;
+    }).catch((err) => {
+    console.log(err);
+    });
+
+</script>
